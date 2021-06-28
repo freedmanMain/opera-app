@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/stages")
 public class StageController {
@@ -32,7 +34,7 @@ public class StageController {
     }
 
     @PostMapping
-    public StageResponseDto addCinemaHall(@RequestBody StageRequestDto dto) {
+    public StageResponseDto addCinemaHall(@RequestBody @Valid StageRequestDto dto) {
         Stage stage = stageService.add(stageDtoRequestMapper.fromDto(dto));
         return stageDtoResponseMapper.toDto(stage);
     }

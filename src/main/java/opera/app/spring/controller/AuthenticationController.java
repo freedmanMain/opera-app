@@ -1,5 +1,6 @@
 package opera.app.spring.controller;
 
+import javax.validation.Valid;
 import opera.app.spring.model.User;
 import opera.app.spring.model.dto.request.UserRequestDto;
 import opera.app.spring.model.dto.response.UserResponseDto;
@@ -21,7 +22,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public UserResponseDto register(@RequestBody UserRequestDto userRequestDto) {
+    public UserResponseDto register(@RequestBody @Valid UserRequestDto userRequestDto) {
         User registeredUser = authenticationService.register(userRequestDto.getEmail(),
                 userRequestDto.getPassword());
         return userResponseMapper.toDto(registeredUser);
