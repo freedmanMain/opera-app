@@ -21,8 +21,8 @@ Password hashing is implemented.
 1. Configure Apache Tomcat 
 2. Install MySQL and MySQL Workbench
 3. File src/main/resources/db.properties is to be configured:
-- db.driver=YOUR_DRIVER
-- db.url=YOUR_URL
-- db.username=YOUR_USERNAME
-- db.password=YOUR_PASSWORD   
+   - db.driver=YOUR_DRIVER
+   - db.url=YOUR_URL
+   - db.username=YOUR_USERNAME
+   - db.password=YOUR_PASSWORD   
 4. Start the application
