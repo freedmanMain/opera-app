@@ -7,6 +7,7 @@ Project based on 3-layer architecture:
 - Presentation layer (controllers)
 - Application layer (services)
 - Data access layer (DAO)
+
 Password hashing is implemented.
 
 ### Technologies
