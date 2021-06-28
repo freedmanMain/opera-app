@@ -2,6 +2,7 @@ package opera.app.spring.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import opera.app.spring.model.Stage;
 import opera.app.spring.model.dto.request.StageRequestDto;
 import opera.app.spring.model.dto.response.StageResponseDto;
@@ -32,7 +33,7 @@ public class StageController {
     }
 
     @PostMapping
-    public StageResponseDto addCinemaHall(@RequestBody StageRequestDto dto) {
+    public StageResponseDto addCinemaHall(@RequestBody @Valid StageRequestDto dto) {
         Stage stage = stageService.add(stageDtoRequestMapper.fromDto(dto));
         return stageDtoResponseMapper.toDto(stage);
     }

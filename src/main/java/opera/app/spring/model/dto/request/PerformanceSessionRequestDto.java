@@ -1,16 +1,24 @@
 package opera.app.spring.model.dto.request;
 
-public class PerformanceSessionRequestDto {
-    private Long movieId;
-    private String showTime;
-    private Long cinemaHallId;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
-    public Long getMovieId() {
-        return movieId;
+public class PerformanceSessionRequestDto {
+    @NotNull
+    @Min(1)
+    private Long stageId;
+    @NotNull
+    private String showTime;
+    @NotNull
+    @Min(1)
+    private Long performanceId;
+
+    public Long getStageId() {
+        return stageId;
     }
 
-    public void setMovieId(Long movieId) {
-        this.movieId = movieId;
+    public void setStageId(Long stageId) {
+        this.stageId = stageId;
     }
 
     public String getShowTime() {
@@ -21,11 +29,11 @@ public class PerformanceSessionRequestDto {
         this.showTime = showTime;
     }
 
-    public Long getCinemaHallId() {
-        return cinemaHallId;
+    public Long getPerformanceId() {
+        return performanceId;
     }
 
-    public void setCinemaHallId(Long cinemaHallId) {
-        this.cinemaHallId = cinemaHallId;
+    public void setPerformanceId(Long performanceId) {
+        this.performanceId = performanceId;
     }
 }

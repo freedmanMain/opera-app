@@ -4,6 +4,7 @@ import opera.app.spring.model.User;
 import opera.app.spring.model.dto.response.UserResponseDto;
 import opera.app.spring.service.UserService;
 import opera.app.spring.service.dto.mapping.impl.response.UserResponseMapper;
+import opera.app.spring.validation.Email;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,7 @@ public class UserController {
     }
 
     @GetMapping("/by-email")
-    public UserResponseDto getUser(@RequestParam String email) {
+    public UserResponseDto getUser(@RequestParam @Email String email) {
         User userByEmail = userService.findByEmail(email).get();
         return userResponseMapper.toDto(userByEmail);
     }

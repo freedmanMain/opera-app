@@ -1,7 +1,12 @@
 package opera.app.spring.model.dto.request;
 
+import javax.validation.constraints.NotNull;
+import opera.app.spring.validation.Email;
+
 public class UserRequestDto {
+    @Email
     private String email;
+    @NotNull
     private String password;
 
     public String getEmail() {

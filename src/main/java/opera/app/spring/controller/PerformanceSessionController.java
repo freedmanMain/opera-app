@@ -3,6 +3,7 @@ package opera.app.spring.controller;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import opera.app.spring.model.PerformanceSession;
 import opera.app.spring.model.dto.request.PerformanceSessionRequestDto;
 import opera.app.spring.model.dto.response.PerformanceSessionResponseDto;
@@ -41,17 +42,18 @@ public class PerformanceSessionController {
 
     @PostMapping
     public PerformanceSessionResponseDto addMovieSession(
-            @RequestBody PerformanceSessionRequestDto dto) {
+            @RequestBody
+            @Valid PerformanceSessionRequestDto dto) {
         PerformanceSession performanceSession
                 = performanceSessionService.add(performanceSessionDtoRequestMapper.fromDto(dto));
         return performanceSessionDtoResponseMapper.toDto(performanceSession);
     }
 
     @GetMapping("/available")
-    public List<PerformanceSessionResponseDto> getAllAvailableSessions(@RequestParam Long id,
-                                                                       @RequestParam
-                                                          @DateTimeFormat(pattern = "dd.MM.yyyy")
-                                                            LocalDate date) {
+    public List<PerformanceSessionResponseDto> getAllAvailableSessions(
+            @RequestParam Long id,
+            @RequestParam
+            @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate date) {
         return performanceSessionService.findAvailableSessions(id, date).stream()
                 .map(performanceSessionDtoResponseMapper::toDto)
                 .collect(Collectors.toList());
@@ -59,7 +61,8 @@ public class PerformanceSessionController {
 
     @PutMapping("/{id}")
     public void update(@PathVariable Long id,
-                       @RequestBody PerformanceSessionRequestDto performanceSessionRequestDto) {
+                       @RequestBody
+                       @Valid PerformanceSessionRequestDto performanceSessionRequestDto) {
         PerformanceSession performanceSession =
                 performanceSessionDtoRequestMapper.fromDto(performanceSessionRequestDto);
         performanceSession.setId(id);
