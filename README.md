@@ -13,12 +13,12 @@ Password hashing is implemented.
 ### Technologies
 * Apache Tomcat - version 9.0.46
 * MySQL - version 8.0.25
-* Spring Core/Web/MVC
+* Spring Core/Web/MVC/Rest
 * Hibernate
 * Json
 
 ## Setup
-1. Configure Apache Tomcat 
+1. Configure Tomcat (Local) with : Deployment - war_exploded, context address - "/"
 2. Install MySQL and MySQL Workbench
 3. File src/main/resources/db.properties is to be configured:
    - db.driver=YOUR_DRIVER
