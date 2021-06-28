@@ -7,11 +7,11 @@ Project based on 3-layer architecture:
 - Presentation layer (controllers)
 - Application layer (services)
 - Data access layer (DAO)
-- Password hashing is implemented.
+Password hashing is implemented.
 
 ### Technologies
 * Apache Tomcat - version 9.0.46
-* MySQL - version 8.0.22
+* MySQL - version 8.0.25
 * Spring Core/Web/MVC
 * Hibernate
 * Json
