@@ -4,7 +4,6 @@ import java.util.Optional;
 import opera.app.spring.dao.UserDao;
 import opera.app.spring.model.User;
 import opera.app.spring.service.UserService;
-import opera.app.spring.util.HashUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
