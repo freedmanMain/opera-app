@@ -2,6 +2,7 @@ package opera.app.spring.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import opera.app.spring.model.Performance;
 import opera.app.spring.model.dto.request.PerformanceRequestDto;
 import opera.app.spring.model.dto.response.PerformanceResponseDto;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/performances")

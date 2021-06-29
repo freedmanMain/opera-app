@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-
 import opera.app.spring.model.PerformanceSession;
 import opera.app.spring.model.dto.request.PerformanceSessionRequestDto;
 import opera.app.spring.model.dto.response.PerformanceSessionResponseDto;

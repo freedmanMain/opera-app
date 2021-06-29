@@ -38,7 +38,8 @@ public class OrderController {
     public OrderResponseDto completeOrder(Authentication authentication) {
         String email = authentication.getName();
         User userFromDb = userService.findByEmail(email)
-                .orElseThrow(() -> new DataProcessingException("User not found by email + " + email));
+                .orElseThrow(() -> new DataProcessingException(
+                        "User not found by email + " + email));
         ShoppingCart cart = shoppingCartService.getByUser(userFromDb);
         return orderResponseMapper.toDto(orderService.completeOrder(cart));
     }
@@ -47,7 +48,8 @@ public class OrderController {
     public List<OrderResponseDto> getOrdersHistory(Authentication authentication) {
         String email = authentication.getName();
         User userFromDb = userService.findByEmail(email)
-                .orElseThrow(() -> new DataProcessingException("User not found by email + " + email));
+                .orElseThrow(() -> new DataProcessingException(
+                        "User not found by email + " + email));
         return orderService.getOrdersHistory(userFromDb).stream()
                 .map(orderResponseMapper::toDto)
                 .collect(Collectors.toList());

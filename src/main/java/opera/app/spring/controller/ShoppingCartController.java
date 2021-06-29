@@ -1,5 +1,6 @@
 package opera.app.spring.controller;
 
+import javax.validation.constraints.Min;
 import opera.app.spring.exception.DataProcessingException;
 import opera.app.spring.model.PerformanceSession;
 import opera.app.spring.model.User;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.constraints.Min;
 
 @RestController
 @RequestMapping("/shopping-carts")
@@ -40,7 +39,8 @@ public class ShoppingCartController {
                                                    @RequestParam @Min(1) Long sessionId) {
         String email = authentication.getName();
         User userFromDb = userService.findByEmail(email)
-                .orElseThrow(() -> new DataProcessingException("User not found by email + " + email));
+                .orElseThrow(() -> new DataProcessingException(
+                        "User not found by email + " + email));
         PerformanceSession performanceSession = performanceSessionService.get(sessionId);
         shoppingCartService.addSession(performanceSession, userFromDb);
         return shoppingCartResponseMapper.toDto(shoppingCartService.getByUser(userFromDb));
@@ -50,7 +50,8 @@ public class ShoppingCartController {
     public ShoppingCartResponseDto getByUser(Authentication authentication) {
         String email = authentication.getName();
         User userFromDb = userService.findByEmail(email)
-                .orElseThrow(() -> new DataProcessingException("User not found by email + " + email));
+                .orElseThrow(() -> new DataProcessingException(
+                        "User not found by email + " + email));
         return shoppingCartResponseMapper.toDto(shoppingCartService.getByUser(userFromDb));
     }
 }
