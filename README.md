@@ -8,6 +8,25 @@ Project based on 3-layer architecture:
 - Application layer (services)
 - Data access layer (DAO)
 
+## Person without role can:
+* register
+* view all available sessions
+* view all performances
+* view all stages
+
+## Admin can:
+* view a list of all performances
+* find user by email
+* add new performance
+* add new stage
+* add new performance session, delete or update
+
+## User can:
+* process the order
+* view a history of all the orders
+* add the ticket for movie to the shopping cart
+* view all the tickets in the shopping cart
+
 ### Technologies
 * Apache Tomcat - version 9.0.46
 * MySQL - version 8.0.25
@@ -24,3 +43,4 @@ Project based on 3-layer architecture:
    - db.username=YOUR_USERNAME
    - db.password=YOUR_PASSWORD   
 4. Start the application
+5. Admin and User will be added to your database when program start. You can log in as: Admin: (name: "admine@gmail.com", password:"qwerty12"), or User: (name: "user@domain.com", password:"qwerty")
