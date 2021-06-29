@@ -20,11 +20,15 @@ public class ShoppingCartDaoImpl extends AbstractDao<ShoppingCart> implements Sh
     @Override
     public ShoppingCart getByUser(User user) {
         try (Session session = sessionFactory.openSession()) {
-            Query<ShoppingCart> query = session.createQuery("FROM ShoppingCart sc "
-                    + "LEFT JOIN FETCH sc.tickets "
-                    + "WHERE sc.user = :user", ShoppingCart.class);
-            query.setParameter("user", user);
-            return query.uniqueResult();
+            Query<ShoppingCart> getByUser = session.createQuery(
+                    "SELECT DISTINCT sc FROM ShoppingCart sc "
+                            + "LEFT JOIN FETCH sc.tickets t "
+                            + "LEFT JOIN FETCH t.performanceSession ps "
+                            + "LEFT JOIN FETCH ps.stage "
+                            + "LEFT JOIN FETCH ps.performance "
+                            + "WHERE sc.user = :user", ShoppingCart.class);
+            getByUser.setParameter("user", user);
+            return getByUser.getSingleResult();
         } catch (Exception e) {
             throw new DataProcessingException("Cannot find shopping cart using user ", e);
         }

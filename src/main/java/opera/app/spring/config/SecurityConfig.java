@@ -1,41 +1,53 @@
 package opera.app.spring.config;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user@domain.com")
-                .password(getPasswordEncoder().encode("qwerty"))
-                .roles("USER");
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+
+    public SecurityConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
+
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/register")
+                .permitAll()
+                .antMatchers(HttpMethod.GET, "/performances", "/stages",
+                        "/performance_sessions/available").hasAnyRole("ADMIN", "USER")
+                .antMatchers(HttpMethod.GET, "/shopping-carts/by-user/*",
+                        "/orders").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/orders/complete",
+                        "/shopping-carts/performance_sessions").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/stages",
+                        "/performances", "/performance_sessions").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/users/by-email").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/performance_sessions").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/performance_sessions").hasRole("ADMIN")
+
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .permitAll()
                 .and()
                 .httpBasic()
                 .and()
-                .csrf()
-                .disable();
-    }
-
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+                .csrf().disable();
     }
 }
