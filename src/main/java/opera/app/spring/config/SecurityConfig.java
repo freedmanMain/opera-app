@@ -27,18 +27,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/register").permitAll()
-                .antMatchers(HttpMethod.GET, "/movies", "/cinema-halls",
-                        "/movie-sessions/available").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/register")
+                .permitAll()
+                .antMatchers(HttpMethod.GET, "/performances", "/stages",
+                        "/performance_sessions/available").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.GET, "/shopping-carts/by-user/*",
                         "/orders").hasRole("USER")
                 .antMatchers(HttpMethod.POST, "/orders/complete",
-                        "/shopping-carts/movie-sessions").hasRole("USER")
-                .antMatchers(HttpMethod.POST, "/cinema-halls",
-                        "/movies", "/movie-sessions").hasRole("ADMIN")
+                        "/shopping-carts/performance_sessions").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/stages",
+                        "/performances", "/performance_sessions").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users/by-email").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/movie-sessions").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/performance_sessions").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/performance_sessions").hasRole("ADMIN")
 
                 .anyRequest().authenticated()
                 .and()
