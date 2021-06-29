@@ -1,7 +1,5 @@
 package opera.app.spring.security;
 
-import java.util.Optional;
-import opera.app.spring.exception.AuthenticationException;
 import opera.app.spring.model.User;
 import opera.app.spring.service.ShoppingCartService;
 import opera.app.spring.service.UserService;
