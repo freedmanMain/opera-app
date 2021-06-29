@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/performances")
 public class PerformanceController {
@@ -34,7 +36,7 @@ public class PerformanceController {
     }
 
     @PostMapping
-    public PerformanceResponseDto addMovie(@RequestBody PerformanceRequestDto dto) {
+    public PerformanceResponseDto addMovie(@RequestBody @Valid PerformanceRequestDto dto) {
         Performance performance = performanceService.add(performanceDtoRequestMapper.fromDto(dto));
         return performanceDtoResponseMapper.toDto(performance);
     }
