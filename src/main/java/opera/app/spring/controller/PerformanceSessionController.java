@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import opera.app.spring.model.PerformanceSession;
 import opera.app.spring.model.dto.request.PerformanceSessionRequestDto;
 import opera.app.spring.model.dto.response.PerformanceSessionResponseDto;
@@ -51,7 +52,7 @@ public class PerformanceSessionController {
 
     @GetMapping("/available")
     public List<PerformanceSessionResponseDto> getAllAvailableSessions(
-            @RequestParam Long id,
+            @RequestParam @Min(1) Long id,
             @RequestParam
             @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate date) {
         return performanceSessionService.findAvailableSessions(id, date).stream()
@@ -60,7 +61,7 @@ public class PerformanceSessionController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id,
+    public void update(@PathVariable @Min(1) Long id,
                        @RequestBody
                        @Valid PerformanceSessionRequestDto performanceSessionRequestDto) {
         PerformanceSession performanceSession =
@@ -70,7 +71,7 @@ public class PerformanceSessionController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable @Min(1) Long id) {
         performanceSessionService.remove(id);
     }
 }

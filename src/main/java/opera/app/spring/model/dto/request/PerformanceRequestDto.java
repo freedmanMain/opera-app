@@ -1,6 +1,9 @@
 package opera.app.spring.model.dto.request;
 
+import javax.validation.constraints.NotBlank;
+
 public class PerformanceRequestDto {
+    @NotBlank
     private String title;
     private String description;
 

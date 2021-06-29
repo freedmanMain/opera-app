@@ -2,6 +2,7 @@ package opera.app.spring.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import opera.app.spring.model.Performance;
 import opera.app.spring.model.dto.request.PerformanceRequestDto;
 import opera.app.spring.model.dto.response.PerformanceResponseDto;
@@ -34,7 +35,7 @@ public class PerformanceController {
     }
 
     @PostMapping
-    public PerformanceResponseDto addMovie(@RequestBody PerformanceRequestDto dto) {
+    public PerformanceResponseDto addMovie(@RequestBody @Valid PerformanceRequestDto dto) {
         Performance performance = performanceService.add(performanceDtoRequestMapper.fromDto(dto));
         return performanceDtoResponseMapper.toDto(performance);
     }
